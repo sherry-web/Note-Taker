@@ -1,87 +1,68 @@
-"use strict";
-const notetxt = document.getElementById("note");
 const addNoteButton = document.getElementById("btn");
+const speechToTextButton = document.getElementById("speech-to-text");
 const noteDiv = document.querySelector(".notes-div");
 let noteNum = 0;
 
+// Function to create a new note
 function createNote() {
+  const notetxt = document.getElementById("note");
   const notedata = notetxt.value;
   noteNum += 1;
   noteDiv.insertAdjacentHTML(
     "beforeend",
-    " <div class= 'note-container'>     <h2 >Note <span class=notecount> </span></h2> <div class='note-div'> <p class='my-note'> </p> </div> <div class = 'btn-div' > <button class = 'view-note'> View Detail </button></div> </div> "
+    `<div class="note-container">
+      <h2>Note <span class="notecount">${noteNum}</span></h2>
+      <div class="note-div">
+        <p class="my-note">${notedata}</p>
+      </div>
+      <div class="btn-div">
+        <button class="view-note">View Detail</button>
+        <button class="edit-note">Edit</button>
+        <button class="delete-note"><img src="delete-icon.png" alt="Delete" width="24"></button>
+      </div>
+    </div>`
   );
-  const notePara = document.querySelectorAll(".my-note");
-  const notecount = document.querySelectorAll(".notecount");
-  notePara.forEach((note) => {
-    if (note.textContent == false) {
-      note.insertAdjacentText("beforeend", notedata);
-    }
-  });
-  notecount.forEach((count) => {
-    if (count.textContent == false) {
-      count.insertAdjacentText("beforeend", noteNum);
-    }
-  });
+  // Clear the input field after adding the note
+  notetxt.value = "";
 }
 
+// Event listener for the "Add Note" button
 addNoteButton.addEventListener("click", () => {
-  if (notetxt.value == false) {
-    alert("Please insert the note");
-  } else {
+  createNote();
+});
+
+// Event listener for the "Enter" key press in the note input field
+document.getElementById("note").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
     createNote();
   }
 });
-noteDiv.addEventListener("click", (e) => {
-  if (e.target.className === "view-note") {
-    document.body.style.backgroundColor = "#DFD3C3";
-    e.composedPath().forEach((ele) => {
-      if (ele.className !== "note-container") {
-      } else {
-        ele.classList.add("check-note");
-        ele.insertAdjacentHTML(
-          "beforeend",
-          "<button class='close-note'>X</button>"
-        );
-      }
-    });
-  }
-  e.composedPath().forEach((el) => {
-    if (el.className !== "notes-div") {
-    } else {
-      const hideothernote = el.querySelectorAll(".note-container");
-      hideothernote.forEach((notecont) => {
-        // console.log(notecont.classList.length === 1);
-        if (notecont.classList.length === 1) {
-          notecont.style.display = "none";
-        }
-      });
-    }
-  });
+
+// Event listener for the "Speech to Text" button
+speechToTextButton.addEventListener("click", () => {
+  const recognition = new webkitSpeechRecognition() || SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.start();
+
+  recognition.onresult = (event) => {
+    const speechResult = event.results[0][0].transcript;
+    document.getElementById("note").value += speechResult;
+  };
+
+  recognition.onend = () => {
+    console.log("Speech recognition ended.");
+  };
 });
 
+// Event delegation for dynamic buttons (Edit and Delete)
 noteDiv.addEventListener("click", (e) => {
-  if (e.target.className === "close-note") {
-    const showotherNote = document.querySelectorAll(".note-container");
-    showotherNote.forEach((notecont) => {
-      if (notecont.style.display === "none") {
-        notecont.style.display = "initial";
-      }
-    });
-    document.body.style.backgroundColor = "";
-    e.composedPath().forEach((sec) => {
-      if (sec.className !== "note-container check-note") {
-      } else {
-        sec.classList.remove("check-note");
-      }
-    });
+  if (e.target.classList.contains("edit-note")) {
+    const noteContainer = e.target.closest(".note-container");
+    const noteText = noteContainer.querySelector(".my-note").textContent;
+    document.getElementById("note").value = noteText;
+    noteContainer.remove(); // Remove the current note container after editing
+  } else if (e.target.classList.contains("delete-note")) {
+    const noteContainer = e.target.closest(".note-container");
+    noteContainer.remove(); // Remove the note container when delete is clicked
   }
 });
-
-//   if (e.target.className === "check-note") {
-//     e.composedPath().forEach((eler) => {
-//       console.log(eler);
-//     });
-//   }
-// });
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
