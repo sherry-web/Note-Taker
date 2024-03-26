@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  background-color: #fbfbfb;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  text-align: center;
+  margin: 10px auto;
+  max-width: 800px;
+}
+
+input[type="text"] {
+  padding: 1em 0;
+  width: 90%;
+  margin-bottom: 1em;
+}
+
+button {
+  width: 100px;
+  margin: 0 auto;
+  padding: 7px 2px;
+  border: none;
+  font-weight: bold;
+  background-color: #dc3535;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#btn:hover {
+  background-color: #e14a4a;
+}
+
+label {
+  font-weight: 700;
+}
+
+.view-note {
+  background-color: rgb(21, 39, 232);
+  color: #fff;
+}
+
+.notes-div {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  width: 100%;
+  /* justify-content: center; */
+  align-items: center;
+  padding: 2.5em;
+  /* flex-flow: row nowrap; */
+}
+.note-container {
+  position: relative;
+  /* position: relative; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  padding: 1em 0.75em;
+  flex-basis: 300px;
+  height: 300px;
+  text-align: start;
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+}
+
+/* .note-container {
+  /* height: 50px; */
+
+/* .my-note {
+  position: absolute;
+} */
+.check-note {
+  position: absolute;
+  top: 26%;
+  background-color: #ded9d9;
+  border-radius: 10px;
+  max-width: 700px;
+  height: auto;
+
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.close-note {
+  margin-top: 5px;
+  width: 30px;
+  position: absolute;
+  top: 11px;
+  left: 650px;
+}
+
+.btn-div {
+  margin-top: 1em;
+}
+
+.note-div {
+  height: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
