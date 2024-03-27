@@ -1,68 +1,40 @@
-const addNoteButton = document.getElementById("btn");
-const speechToTextButton = document.getElementById("speech-to-text");
-const noteDiv = document.querySelector(".notes-div");
-let noteNum = 0;
+// JavaScript Code
 
-// Function to create a new note
-function createNote() {
-  const notetxt = document.getElementById("note");
-  const notedata = notetxt.value;
-  noteNum += 1;
-  noteDiv.insertAdjacentHTML(
-    "beforeend",
-    `<div class="note-container">
-      <h2>Note <span class="notecount">${noteNum}</span></h2>
-      <div class="note-div">
-        <p class="my-note">${notedata}</p>
-      </div>
-      <div class="btn-div">
-        <button class="view-note">View Detail</button>
-        <button class="edit-note">Edit</button>
-        <button class="delete-note"><img src="delete-icon.png" alt="Delete" width="24"></button>
-      </div>
-    </div>`
-  );
-  // Clear the input field after adding the note
-  notetxt.value = "";
+// Function to save a new note
+function saveNote() {
+    var noteInput = document.getElementById("note-input").value;
+    if (noteInput.trim() !== "") {
+        var savedNotes = document.getElementById("saved-notes");
+        var noteDiv = document.createElement("div");
+        noteDiv.classList.add("note");
+        noteDiv.innerHTML = "<p>" + noteInput + "</p><button class='edit-note'>Edit</button><button class='delete-note'>Delete</button>";
+        savedNotes.appendChild(noteDiv);
+        document.getElementById("note-input").value = ""; // Clear the input field after saving note
+    } else {
+        alert("Please enter a note!");
+    }
 }
 
-// Event listener for the "Add Note" button
-addNoteButton.addEventListener("click", () => {
-  createNote();
-});
+// Function to delete a note
+function deleteNote() {
+    this.parentNode.remove();
+}
 
-// Event listener for the "Enter" key press in the note input field
-document.getElementById("note").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    createNote();
-  }
-});
+// Function to edit a note
+function editNote() {
+    var newNote = prompt("Edit your note:", this.parentNode.firstChild.textContent);
+    if (newNote !== null) {
+        this.parentNode.firstChild.textContent = newNote;
+    }
+}
 
-// Event listener for the "Speech to Text" button
-speechToTextButton.addEventListener("click", () => {
-  const recognition = new webkitSpeechRecognition() || SpeechRecognition();
-  recognition.lang = "en-US";
-  recognition.start();
-
-  recognition.onresult = (event) => {
-    const speechResult = event.results[0][0].transcript;
-    document.getElementById("note").value += speechResult;
-  };
-
-  recognition.onend = () => {
-    console.log("Speech recognition ended.");
-  };
-});
-
-// Event delegation for dynamic buttons (Edit and Delete)
-noteDiv.addEventListener("click", (e) => {
-  if (e.target.classList.contains("edit-note")) {
-    const noteContainer = e.target.closest(".note-container");
-    const noteText = noteContainer.querySelector(".my-note").textContent;
-    document.getElementById("note").value = noteText;
-    noteContainer.remove(); // Remove the current note container after editing
-  } else if (e.target.classList.contains("delete-note")) {
-    const noteContainer = e.target.closest(".note-container");
-    noteContainer.remove(); // Remove the note container when delete is clicked
-  }
+// Add event listeners
+document.getElementById("save-note").addEventListener("click", saveNote);
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("delete-note")) {
+        deleteNote.call(event.target);
+    }
+    if (event.target.classList.contains("edit-note")) {
+        editNote.call(event.target);
+    }
 });

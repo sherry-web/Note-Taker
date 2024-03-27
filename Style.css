@@ -1,123 +1,214 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    width: 100%;
-    min-height: 100vh;
-    font-family: "Arial", sans-serif;
-    background-color: #f0f0f0;
-  }
-  
-  .main-container {
-    text-align: center;
-    margin: 10px auto;
-    max-width: 800px;
-  }
-  
-  .heading {
-    margin-bottom: 20px;
-  }
-  
-  .add-note {
-    margin-bottom: 20px;
-  }
-  
-  input[type="text"] {
-    padding: 10px;
-    width: 70%;
-    margin-right: 10px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
+}
+
+/* Typography */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5; /* Add a light background color for better readability */
+}
+
+h1, h2, h3 {
     font-weight: bold;
-    cursor: pointer;
-  }
-  
-  #btn {
-    background-color: #008cba;
-    color: #fff;
-  }
-  
-  #btn:hover {
-    background-color: #005f70;
-  }
-  
-  #speech-to-text {
-    background-color: #4caf50;
-    color: #fff;
-  }
-  
-  #speech-to-text:hover {
-    background-color: #357a38;
-  }
-  
-  .notes-div {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .note-container {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .notecount {
+}
+
+p {
+    margin-bottom: 1rem; /* Add space between paragraphs for better readability */
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: #385A64;
+    color: #FFF;
+    padding: 20px 0;
+    text-align: center; /* Center-align header content for better visual balance */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px; /* Increase font size for better visibility */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav ul li a {
+    color: #FFF;
+    text-decoration: none;
     font-weight: bold;
-  }
-  
-  .my-note {
-    margin-top: 10px;
-    word-wrap: break-word;
-  }
-  
-  .btn-div {
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #FF4F5A;
+}
+
+nav ul li a.active {
+    text-decoration: underline;
+}
+
+/* Hero Section Styles */
+#hero {
+    background-color: #BC343E;
+    color: #FFF;
+    padding: 50px 0;
+    text-align: center; /* Center-align hero content for better visual focus */
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse; /* Reverse the order for smaller screens */
+}
+
+.hero-text {
+    flex-basis: 60%;
+}
+
+.hero-text h1 {
+    font-size: 36px;
+    margin-bottom: 20px; /* Add spacing below heading for better separation */
+}
+
+.hero-text h2 {
+    font-size: 24px;
+}
+
+.hero-image {
+    flex-basis: 40%;
     margin-top: 20px;
-  }
-  
-  .view-note,
-  .edit-note,
-  .delete-note {
-    padding: 8px 15px;
-    margin-right: 10px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Section for taking notes */
+#take-notes {
+    background-color: #FF4F5A;
+    color: #FFF;
+    padding: 50px 0;
+    text-align: center; /* Center-align take notes section for better focus */
+}
+
+#take-notes textarea {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#take-notes button {
+    background-color: #BC343E;
+    color: #FFF;
     border: none;
-    border-radius: 5px;
-    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-  }
-  
-  .view-note {
-    background-color: #2196f3;
-    color: #fff;
-  }
-  
-  .view-note:hover {
-    background-color: #0d47a1;
-  }
-  
-  .edit-note {
-    background-color: #ffc107;
-    color: #000;
-  }
-  
-  .edit-note:hover {
-    background-color: #ff8f00;
-  }
-  
-  .delete-note {
-    background-color: #f44336;
-    color: #fff;
-  }
-  
-  .delete-note:hover {
-    background-color: #b71c1c;
-  }
-  
+    transition: background-color 0.3s ease;
+}
+
+#take-notes button:hover {
+    background-color: #FF4F5A;
+}
+
+/* Notes Section Styles */
+#notes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 2-column grid with equal width */
+    gap: 20px; /* Gap between notes */
+    margin-top: 20px;
+}
+
+.note {
+    background-color: #385A64;
+    color: #FFF;
+    padding: 20px;
+    position: relative;
+}
+
+.note p {
+    margin: 0;
+}
+
+.note button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #BC343E;
+    color: #FFF;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px; /* Increase font size for better visibility */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.note button:hover {
+    background-color: #FF4F5A;
+}
+
+.edit-note {
+    top: 50px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #385A64;
+    color: #FFF;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    .hero-text h1 {
+        font-size: 28px;
+    }
+    .hero-text h2 {
+        font-size: 18px;
+    }
+    .hero-image {
+        flex-basis: 100%;
+        margin-top: 20px;
+    }
+    #take-notes textarea {
+        height: 150px;
+    }
+}
