@@ -143,24 +143,9 @@ nav ul li a.active {
 #notes-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2-column grid */
-    gap: 20px; /* Gap between grid items */
-    grid-auto-flow: row; /* Arrange items in rows */
-    justify-items: stretch; /* Stretch items to fill the container */
+    gap: 50px; /* Gap between grid items */
+    justify-items: center; /* Center the notes horizontally */
 }
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2-column grid */
-    gap: 20px; /* Gap between grid items */
-}
-
-.test-1 { grid-area: test-1; }
-
-.test-2 { grid-area: test-2; }
-
-.test3 { grid-area: test3; }
-
-.test4 { grid-area: test4; }
 
 /* Add border around each note */
 .note {
@@ -168,6 +153,7 @@ nav ul li a.active {
     padding: 10px;
     margin-bottom: 10px;
     position: relative;
+    width: 100%; /* Ensure each note takes up the full width */
 }
 
 /* Style for delete icon */
@@ -183,4 +169,10 @@ nav ul li a.active {
 /* Add your delete icon image */
 .note .delete-note::after {
     content: url('assets/delete.png'); /* Update with your delete icon path */
+}
+
+/* Style for note title */
+.note h3 {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
