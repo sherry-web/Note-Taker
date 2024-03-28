@@ -1,40 +1,60 @@
-// JavaScript Code
+document.addEventListener('DOMContentLoaded', function () {
+    const noteInput = document.getElementById('note-input');
+    const saveNoteBtn = document.getElementById('save-note');
+    const savedNotesContainer = document.getElementById('saved-notes');
 
-// Function to save a new note
-function saveNote() {
-    var noteInput = document.getElementById("note-input").value;
-    if (noteInput.trim() !== "") {
-        var savedNotes = document.getElementById("saved-notes");
-        var noteDiv = document.createElement("div");
-        noteDiv.classList.add("note");
-        noteDiv.innerHTML = "<p>" + noteInput + "</p><button class='edit-note'>Edit</button><button class='delete-note'>Delete</button>";
-        savedNotes.appendChild(noteDiv);
-        document.getElementById("note-input").value = ""; // Clear the input field after saving note
-    } else {
-        alert("Please enter a note!");
+    // Event listener for saving note on Enter key press
+    noteInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            saveNote();
+        }
+    });
+
+    // Event listener for saving note on button click
+    saveNoteBtn.addEventListener('click', saveNote);
+
+    // Function to save a note
+    function saveNote() {
+        const noteContent = noteInput.value;
+        if (noteContent.trim() !== '') {
+            const note = createNoteElement(noteContent);
+            savedNotesContainer.appendChild(note);
+            noteInput.value = ''; // Clear the note input after saving
+        } else {
+            alert('Please enter a note before saving.');
+        }
     }
-}
 
-// Function to delete a note
-function deleteNote() {
-    this.parentNode.remove();
-}
-
-// Function to edit a note
-function editNote() {
-    var newNote = prompt("Edit your note:", this.parentNode.firstChild.textContent);
-    if (newNote !== null) {
-        this.parentNode.firstChild.textContent = newNote;
-    }
-}
-
-// Add event listeners
-document.getElementById("save-note").addEventListener("click", saveNote);
-document.addEventListener("click", function(event) {
-    if (event.target.classList.contains("delete-note")) {
-        deleteNote.call(event.target);
-    }
-    if (event.target.classList.contains("edit-note")) {
-        editNote.call(event.target);
+    // Function to create a new note element
+    function createNoteElement(content) {
+        const note = document.createElement('div');
+        note.classList.add('note');
+        
+        const noteText = document.createElement('p');
+        noteText.textContent = content;
+        note.appendChild(noteText);
+        
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit-note');
+        editButton.addEventListener('click', function () {
+            // Enable editing of the note
+            const newText = prompt('Enter the updated note:', content);
+            if (newText !== null) {
+                noteText.textContent = newText;
+            }
+        });
+        note.appendChild(editButton);
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-note');
+        deleteButton.addEventListener('click', function () {
+            // Delete the note
+            note.remove();
+        });
+        note.appendChild(deleteButton);
+        
+        return note;
     }
 });
