@@ -1,60 +1,69 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Get reference to elements
     const noteInput = document.getElementById('note-input');
     const saveNoteBtn = document.getElementById('save-note');
-    const savedNotesContainer = document.getElementById('saved-notes');
+    const notesContainer = document.getElementById('notes-container');
 
-    // Event listener for saving note on Enter key press
-    noteInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            saveNote();
-        }
-    });
+    // Function to create a new note
+    function createNote() {
+        // Get the note text from the input field
+        const noteText = noteInput.value;
 
-    // Event listener for saving note on button click
-    saveNoteBtn.addEventListener('click', saveNote);
+        // Check if the input field is not empty
+        if (noteText.trim() !== '') {
+            // Create a new note element
+            const note = document.createElement('div');
+            note.classList.add('note');
 
-    // Function to save a note
-    function saveNote() {
-        const noteContent = noteInput.value;
-        if (noteContent.trim() !== '') {
-            const note = createNoteElement(noteContent);
-            savedNotesContainer.appendChild(note);
-            noteInput.value = ''; // Clear the note input after saving
+            // Create paragraph element for the note text
+            const noteContent = document.createElement('p');
+            noteContent.textContent = noteText;
+
+            // Create edit and delete buttons for the note
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edit';
+            editBtn.classList.add('edit-note');
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.classList.add('delete-note');
+
+            // Append note content and buttons to the note element
+            note.appendChild(noteContent);
+            note.appendChild(editBtn);
+            note.appendChild(deleteBtn);
+
+            // Append the note element to the notes container
+            notesContainer.appendChild(note);
+
+            // Clear the input field after adding the note
+            noteInput.value = '';
         } else {
             alert('Please enter a note before saving.');
         }
     }
 
-    // Function to create a new note element
-    function createNoteElement(content) {
-        const note = document.createElement('div');
-        note.classList.add('note');
-        
-        const noteText = document.createElement('p');
-        noteText.textContent = content;
-        note.appendChild(noteText);
-        
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.classList.add('edit-note');
-        editButton.addEventListener('click', function () {
-            // Enable editing of the note
-            const newText = prompt('Enter the updated note:', content);
-            if (newText !== null) {
-                noteText.textContent = newText;
+    // Event listener for the save note button
+    saveNoteBtn.addEventListener('click', createNote);
+
+    // Event listener for the enter key to save the note
+    noteInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            createNote();
+        }
+    });
+
+    // Event delegation for edit and delete note buttons
+    notesContainer.addEventListener('click', function (event) {
+        const target = event.target;
+        if (target.classList.contains('edit-note')) {
+            // Handle edit note functionality
+            const editedText = prompt('Enter the updated note:', target.parentElement.querySelector('p').textContent);
+            if (editedText !== null) {
+                target.parentElement.querySelector('p').textContent = editedText;
             }
-        });
-        note.appendChild(editButton);
-        
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-note');
-        deleteButton.addEventListener('click', function () {
-            // Delete the note
-            note.remove();
-        });
-        note.appendChild(deleteButton);
-        
-        return note;
-    }
+        } else if (target.classList.contains('delete-note')) {
+            // Handle delete note functionality
+            target.parentElement.remove();
+        }
+    });
 });
