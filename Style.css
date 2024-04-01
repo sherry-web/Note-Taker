@@ -1,15 +1,23 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F5F5F5; /* Updated background color */
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12-column grid */
+    gap: 20px; /* Gutter between grid items */
 }
 
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Center content within the grid */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    grid-column: 2 / span 10; /* Spanning across 10 columns starting from column 2 */
+    margin: 0 auto; /* Auto margins to center the container */
 }
 
 /* Header Styles */
@@ -17,6 +25,8 @@ header {
     background-color: #385A64;
     color: #FFF;
     padding: 20px 0;
+    grid-column: 1 / -1; /* Span across all columns */
+    text-align: center; /* Center align text */
 }
 
 header h1 {
@@ -24,7 +34,7 @@ header h1 {
 }
 
 nav {
-    float: right;
+    display: inline-block; /* Added display property */
 }
 
 nav ul {
@@ -64,6 +74,7 @@ nav ul li a.active {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    grid-column: 1 / -1; /* Span across all columns */
 }
 
 .hero-content {
@@ -137,14 +148,20 @@ nav ul li a.active {
     background: none;
     font-size: 12px;
     cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
 }
 
 /* Saved Notes Section Styles */
 #notes-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2-column grid */
-    gap: 50px; /* Gap between grid items */
-    justify-items: center; /* Center the notes horizontally */
+    grid-template-columns: 1fr; /* Single column grid */
+    gap: 20px; /* Gap between grid items */
+    grid-column: 1 / -1; /* Span across all columns */
+}
+
+/* Style for the h2 text */
+#notes-container h2 {
+    margin-bottom: 20px; /* Added margin bottom */
 }
 
 /* Add border around each note */
@@ -154,6 +171,7 @@ nav ul li a.active {
     margin-bottom: 10px;
     position: relative;
     width: 100%; /* Ensure each note takes up the full width */
+    border-radius: 4px; /* Rounded corners */
 }
 
 /* Style for delete icon */

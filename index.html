@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="Style.css"> 
 </head>
 <body>
-    <header>
-        <div class="container">
+    <div class="container">
+        <header>
             <h1>Your Note-Taking App</h1>
             <nav>
                 <ul>
@@ -18,11 +18,9 @@
                     <li><a href="#">Sign In</a></li> <!-- New Sign In link -->
                 </ul>
             </nav>
-        </div>
-    </header>
+        </header>
 
-    <section id="hero">
-        <div class="container">
+        <section id="hero">
             <div class="hero-content">
                 <div class="hero-text">
                     <h2>Automate your note-taking process</h2>
@@ -36,25 +34,12 @@
                 <textarea id="note-input" placeholder="Write your notes here..."></textarea>
                 <button id="save-note" class="primary-btn">Save Note</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="notes-container">
-        <div class="note">
-            <h3>Note Title</h3>
-            <p>This is a sample note.</p>
-            <button class="edit-note">Edit</button>
-            <button class="delete-note">Delete</button>
-        </div>
-        <div class="note">
-            <h3>Note Title</h3>
-            <p>This is another sample note.</p>
-            <button class="edit-note">Edit</button>
-            <button class="delete-note">Delete</button>
-        </div>
-        <!-- Repeat the note elements as needed -->
-    </section>
-    
+        <section id="notes-container">
+            <h2>Saved Notes</h2>
+            <!-- Saved notes will be dynamically added here -->
+        </section>
 
     <footer>
         <div class="container">
