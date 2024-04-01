@@ -1,2 +1,2 @@
 # Note-Taker
-![Screenshot](assets/Screenshot.png)
+![Screenshot](assets/notetaker.png)
